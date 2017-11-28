@@ -28,8 +28,9 @@ public class UserPromptActivity extends AppCompatActivity {
 
     private void showAlertDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("마이카트 by 하요밍")
+                .setTitle("맘속에저장")
                 .setMessage("캡쳐된 사진에 연결할 URL 을 클립보드로 복사해주세요.")
+                .setIcon(R.drawable.heart)
                 .setCancelable(false)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
@@ -46,6 +47,7 @@ public class UserPromptActivity extends AppCompatActivity {
                         UserPromptActivity.this.finish();
                     }
                 })
+                .setCancelable(false)
                 .show();
     }
 

@@ -11,8 +11,11 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.example.hayoung.mycart.MainActivity;
+import com.example.hayoung.mycart.MyCartApplication;
 import com.example.hayoung.mycart.UserPromptActivity;
 import com.example.hayoung.mycart.model.CartItem;
+
+import io.realm.Realm;
 
 /**
  * Created by hayoung on 2017. 9. 17..
@@ -49,7 +52,12 @@ public class ClipboardObserverService extends Service {
                 try {
                     String text = clipData.getItemAt(0).getText().toString();
                     Uri uri = Uri.parse(text);
-                    MainActivity.addItem(new CartItem(imagePath, uri.toString()));
+
+                    Realm realm = MyCartApplication.getRealm();
+                    realm.beginTransaction();
+                    realm.copyToRealm(new CartItem(imagePath, uri.toString()));
+                    realm.commitTransaction();
+
                     Toast.makeText(getApplicationContext(), "마이카트에 저장되었습니다.", Toast.LENGTH_SHORT).show();
 
                     // 서비스 종료
